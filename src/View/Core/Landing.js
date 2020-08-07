@@ -53,7 +53,7 @@ class Landing extends Component {
         this.setState({image1: false, image2: false, image3: true})
       }
       
-    }, 2900);
+    }, 5000);
   }
 
   render() {
