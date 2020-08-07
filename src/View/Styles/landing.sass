@@ -123,6 +123,8 @@
           text-transform: uppercase
           letter-spacing: 0.3px
           font-family: Helvetica Neue;
+          font-size: 12px;
+          text-transform: capitalize;
         
         .last
           margin-bottom: 15px
@@ -161,13 +163,20 @@
     height: auto
     margin: 0 20px
 
+    .image
+      padding: 0 10px
+
     .background
       width: 0px
       padding: 0 50%
 
   .form-group
-    display: block
+    display: flex
+    flex-direction: column
     width: 100%
+
+    input, textarea
+      width: auto
 
   .footer
     margin-top: 50px
