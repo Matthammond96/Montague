@@ -19,6 +19,7 @@
   position: relative
   margin: 0 auto
   max-width: 1400px
+  min-height: 700px
 
   .background
     position: absolute
@@ -153,3 +154,21 @@
   
   .crumbs.active
     background-color: #aaa
+
+@media (max-width: 650px) 
+  .landing-page
+    width: auto
+    height: auto
+    margin: 0 20px
+
+    .background
+      width: 0px
+      padding: 0 50%
+
+  .form-group
+    display: block
+    width: 100%
+
+  .footer
+    margin-top: 50px
+
