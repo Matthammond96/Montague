@@ -12,21 +12,37 @@ class Landing extends Component {
       image1: true,
       image2: false,
       image3: false,
-      name: "Matt Hammond",
-      phone: "07854217123",
-      email: "matt@personalised.io",
-      enquiry: "This is my enquiry"
+      name: "",
+      phone: "",
+      email: "",
+      message: "",
+      success: false,
+      error: false
     }
   }
 
-  sendEmail(e) {
-    e.preventDefault();
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+      error: ""
+    })
+  }
 
-    emailjs.sendForm('gmail', 'template_MFaczJnf', e.target, 'user_69nyfQVMDHp4qYJveoY49')
+  sendEmail(e) {
+    if (this.state.name === "") return this.setState({error: true});
+    if (this.state.phone === "") return this.setState({error: true});
+    if (this.state.email === "") return this.setState({error: true});
+    if (this.state.message === "") return this.setState({error: true});
+
+    emailjs.sendForm('gmail', 'template_MFaczJnf', e, 'user_69nyfQVMDHp4qYJveoY49')
       .then((result) => {
-          console.log(result.text);
+          this.setState({success: true,
+          name: "",
+          phone: "",
+          email: "",
+          message: "",});
       }, (error) => {
-          console.log(error.text);
+        this.setState({error: true});
       });
   }
 
@@ -56,6 +72,13 @@ class Landing extends Component {
     }, 5000);
   }
 
+  onClick(e) {
+    e.preventDefault();
+
+    const ex = document.getElementById("form")
+    this.sendEmail(ex);
+  }
+
   render() {
     
     return (
@@ -74,18 +97,27 @@ class Landing extends Component {
               <p>Montague Real Estate is known for its refreshing, modern and luxury approach to real estate, whilst providing a premium service to clients across the globe.  Our relationships with clients can start with something as simple as real estate, however our services go far beyond that including, complex acquisitions, investment advice and luxury sales.</p>
               {/* <p class="enquiry-text">For any current enquires or wish to stay update to date please fill in the contact form below.</p> */}
 
-                <form className="contact-form" onSubmit={this.sendEmail}>
+                { this.state.success ? (
+                  <p className="response">Your enquiry has succesfully been submitted.A member of our team will get back to you within 48 hours.</p>
+                ): null }
+
+                {this.state.error ? (
+                  <p className="response">Your enquiry could not be sumbitted, please try again, or call us on 020 7118 1162</p>
+                ): null}
+
+                <form id="form" className="contact-form" onSubmit={this.sendEmail}>
                   <div className="form-group">
-                    <input type="text" name="user_name" value={this.state.name}/>
-                    <input name="contact_number" value={this.state.phone} />                    
+                    <input type="text" name="name" onChange={this.handleChange("name")} placeholder="Full Name" value={this.state.name}/>
+                    <input name="phone" placeholder="Phone Number" onChange={this.handleChange("phone")} value={this.state.phone} />                    
                   </div>
                   <div className="form-group">
-                    <input type="email" name="user_email" value={this.state.email}/>
+                    <input type="email" name="email" onChange={this.handleChange("email")} placeholder="Email Address" value={this.state.email}/>
                   </div>
                   <div className="form-group last">
-                    <textarea name="message"  value={this.state.enquiry}/>
+                    <textarea name="message" placeholder="Your Enquiry" onChange={this.handleChange("message")} value={this.state.message}/>
                   </div>  
-                  <a href="#" onclick="$(this).closest('form').submit()">Submit</a>
+                  <button id="ex" type="submit">Submit</button>
+                  <a href="#" onClick={(e => this.onClick(e))}>Submit</a>
               </form>
 
             </div>
@@ -102,7 +134,7 @@ class Landing extends Component {
           </div> */}
         </div>
 
-
+        <div className="overlay"></div>
         <div className={"background image-1" + (this.state.image1 ? " active" : " hidden") }></div>
         <div className={"background image-2" + (this.state.image2 ? " active" : " hidden") }></div>
         <div className={"background image-3" + (this.state.image3 ? " active" : " hidden") }></div>
