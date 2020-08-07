@@ -1,0 +1,15 @@
+@font-face {
+  font-family: Orchide;
+  src: url("/Orchide.otf") format("opentype");
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span, a, input, textarea {
+  font-family: "Montserrat", sans-serif
+}
