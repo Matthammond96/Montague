@@ -98,7 +98,7 @@ class Landing extends Component {
           <div className="form">
             <div>
               <h1>Website Coming&nbsp;Soon</h1>
-              <p>Montague Real Estate is known for its refreshing, modern and luxury approach to real estate, whilst providing a premium service to clients across the globe.  Our relationships with clients can start with something as simple as real estate, however our services go far beyond that including, complex acquisitions, investment advice and luxury sales.</p>
+              <p>Montague Real Estate is known for its refreshing, modern and luxury approach to real estate, whilst providing a premium service to clients across the globe. Our relationships with clients can start with something as simple as real estate, but our services go far beyond that, including complex acquisitions, investment advice and luxury sales.</p>
               {/* <p class="enquiry-text">For any current enquires or wish to stay update to date please fill in the contact form below.</p> */}
 
                 { this.state.success ? (
