@@ -34,7 +34,9 @@ class Landing extends Component {
     if (this.state.email === "") return this.setState({error: true});
     if (this.state.message === "") return this.setState({error: true});
 
-    emailjs.sendForm('gmail', 'template_MFaczJnf', e, 'user_69nyfQVMDHp4qYJveoY49')
+    if (!this.state.email.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)) return this.setState({error: true});
+
+    emailjs.sendForm('gmail', 'template_MFaczJnf', e.target, 'user_69nyfQVMDHp4qYJveoY49')
       .then((result) => {
           this.setState({success: true,
           name: "",
@@ -75,8 +77,10 @@ class Landing extends Component {
   onClick(e) {
     e.preventDefault();
 
-    const ex = document.getElementById("form")
-    this.sendEmail(ex);
+    const ex = document.getElementById("ex");
+
+    ex.click()
+    // this.sendEmail(ex);
   }
 
   render() {
@@ -107,14 +111,14 @@ class Landing extends Component {
 
                 <form id="form" className="contact-form" onSubmit={this.sendEmail}>
                   <div className="form-group">
-                    <input type="text" name="name" onChange={this.handleChange("name")} placeholder="Full Name" value={this.state.name}/>
-                    <input name="phone" placeholder="Phone Number" onChange={this.handleChange("phone")} value={this.state.phone} />                    
+                    <input type="text" name="name" onChange={this.handleChange("name")} placeholder="Full Name" value={this.state.name} required/>
+                    <input type="text" name="phone" placeholder="Phone Number" onChange={this.handleChange("phone")} value={this.state.phone} required />                    
                   </div>
                   <div className="form-group">
-                    <input type="email" name="email" onChange={this.handleChange("email")} placeholder="Email Address" value={this.state.email}/>
+                    <input type="email" name="email" onChange={this.handleChange("email")} placeholder="Email Address" value={this.state.email} required/>
                   </div>
                   <div className="form-group last">
-                    <textarea name="message" placeholder="Your Enquiry" onChange={this.handleChange("message")} value={this.state.message}/>
+                    <textarea name="message" placeholder="Your Enquiry" onChange={this.handleChange("message")} value={this.state.message} required/>
                   </div>  
                   <button id="ex" type="submit">Submit</button>
                   <a href="#" onClick={(e => this.onClick(e))}>Submit</a>
@@ -124,7 +128,7 @@ class Landing extends Component {
           </div>
           <div className="footer">
             <h4>further together</h4>
-            <p>10 Brick Street, Mayfair, W1J 7DF<br></br>Tel: 020 7118 1162<br></br><span><a href="https://www.instagram.com/montaguelondon/"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-instagram-alt" viewBox="0 0 32 32"><path class="cls-1" d="M16 2.88c4.27 0 4.78 0 6.47.1 4.33.19 6.36 2.25 6.56 6.56.07 1.68.09 2.19.09 6.46s0 4.78-.09 6.47c-.2 4.3-2.22 6.36-6.56 6.56-1.69.07-2.2.09-6.47.09s-4.78 0-6.47-.09c-4.34-.2-6.36-2.27-6.55-6.56-.08-1.69-.1-2.2-.1-6.47s0-4.78.1-6.47C3.17 5.23 5.19 3.17 9.53 3c1.69-.1 2.2-.12 6.47-.12zM16 0c-4.35 0-4.89 0-6.6.1C3.59.36.36 3.59.1 9.4 0 11.11 0 11.65 0 16s0 4.89.1 6.6c.26 5.81 3.49 9 9.3 9.3 1.71.08 2.25.1 6.6.1s4.89 0 6.6-.1c5.8-.26 9-3.49 9.3-9.3.08-1.71.1-2.25.1-6.6s0-4.89-.1-6.6c-.26-5.8-3.49-9-9.3-9.3C20.89 0 20.35 0 16 0zm0 7.78A8.22 8.22 0 1 0 24.22 16 8.22 8.22 0 0 0 16 7.78zm0 13.55A5.33 5.33 0 1 1 21.33 16 5.32 5.32 0 0 1 16 21.33zm8.54-15.79a1.92 1.92 0 1 0 1.92 1.92 1.92 1.92 0 0 0-1.92-1.92z"></path></svg></a></span></p>
+            <p>10 Brick Street, Mayfair, W1J 7DF<br></br>Tel: 020 7118 1162<br></br><span><a target="_blank" href="https://www.instagram.com/montaguelondon/"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-instagram-alt" viewBox="0 0 32 32"><path class="cls-1" d="M16 2.88c4.27 0 4.78 0 6.47.1 4.33.19 6.36 2.25 6.56 6.56.07 1.68.09 2.19.09 6.46s0 4.78-.09 6.47c-.2 4.3-2.22 6.36-6.56 6.56-1.69.07-2.2.09-6.47.09s-4.78 0-6.47-.09c-4.34-.2-6.36-2.27-6.55-6.56-.08-1.69-.1-2.2-.1-6.47s0-4.78.1-6.47C3.17 5.23 5.19 3.17 9.53 3c1.69-.1 2.2-.12 6.47-.12zM16 0c-4.35 0-4.89 0-6.6.1C3.59.36.36 3.59.1 9.4 0 11.11 0 11.65 0 16s0 4.89.1 6.6c.26 5.81 3.49 9 9.3 9.3 1.71.08 2.25.1 6.6.1s4.89 0 6.6-.1c5.8-.26 9-3.49 9.3-9.3.08-1.71.1-2.25.1-6.6s0-4.89-.1-6.6c-.26-5.8-3.49-9-9.3-9.3C20.89 0 20.35 0 16 0zm0 7.78A8.22 8.22 0 1 0 24.22 16 8.22 8.22 0 0 0 16 7.78zm0 13.55A5.33 5.33 0 1 1 21.33 16 5.32 5.32 0 0 1 16 21.33zm8.54-15.79a1.92 1.92 0 1 0 1.92 1.92 1.92 1.92 0 0 0-1.92-1.92z"></path></svg></a></span></p>
             {/* <p>10 Brick Street, Mayfair, W1J 7DF<br></br>E: info@montaguerealestate.com<br></br>Tel: 020 7118 1162</p> */}
           </div>
           {/* <div className="breadcrumbs">
